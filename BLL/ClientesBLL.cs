@@ -7,31 +7,31 @@ namespace ClientesMABB.BLL
 {
     public class ClientesBLL
     {
-        private Contexto Contexto;
+        private Contexto _contexto;
 
         public ClientesBLL(Contexto contexto)
         {
-            Contexto = contexto;
+            _contexto = contexto;
         }
 
         public bool Existe(int id)
         {
-            return Contexto.Clientes.Any(o => o.ClienteId == id);
+            return _contexto.Clientes.Any(o => o.ClienteId == id);
         }
         private bool Insertar(Cliente clientes)
         {
-            Contexto.Clientes.Add(clientes);
-            return Contexto.SaveChanges() > 0;
+            _contexto.Clientes.Add(clientes);
+            return _contexto.SaveChanges() > 0;
         }
 
         private bool Modificar(Cliente cliente)
         {
-            var PrioridadADesechar = Contexto.Clientes.Find(cliente.ClienteId);
+            var PrioridadADesechar = _contexto.Clientes.Find(cliente.ClienteId);
             if (cliente != null)
             {
-                Contexto.Entry(PrioridadADesechar).State = EntityState.Detached;
-                Contexto.Entry(cliente).State = EntityState.Modified;
-                return Contexto.SaveChanges() > 0;
+                _contexto.Entry(PrioridadADesechar).State = EntityState.Detached;
+                _contexto.Entry(cliente).State = EntityState.Modified;
+                return _contexto.SaveChanges() > 0;
             }
             return false;
 
@@ -39,7 +39,7 @@ namespace ClientesMABB.BLL
 
         public bool Guardar(Cliente cliente)
         {
-            if (Contexto.Clientes.Any(p => p.ClienteId != cliente.ClienteId && p.Rnc == cliente.Rnc || p.Nombres == cliente.Nombres))
+            if (_contexto.Clientes.Any(p => p.ClienteId != cliente.ClienteId && p.Rnc == cliente.Rnc || p.Nombres == cliente.Nombres))
             {
                 return false;
             }
@@ -55,8 +55,8 @@ namespace ClientesMABB.BLL
 
             if (cliente != null)
             {
-                Contexto.Entry(cliente).State = EntityState.Deleted;
-                return Contexto.SaveChanges() > 0;
+                _contexto.Entry(cliente).State = EntityState.Deleted;
+                return _contexto.SaveChanges() > 0;
             }
             return false;
 
@@ -64,21 +64,21 @@ namespace ClientesMABB.BLL
 
         public Cliente? Buscar(int id)
         {
-            return Contexto.Clientes.Where(o => o.ClienteId == id).AsNoTracking().SingleOrDefault(); ;
+            return _contexto.Clientes.Where(o => o.ClienteId == id).AsNoTracking().SingleOrDefault(); ;
         }
 
         public List<Cliente> BuscarPorId(int id)
         {
-            return Contexto.Clientes.AsNoTracking().Where(c => c.ClienteId == id).ToList();
+            return _contexto.Clientes.AsNoTracking().Where(c => c.ClienteId == id).ToList();
         }
 
         public List<Cliente> GetList(Expression<Func<Cliente, bool>> criterio)
         {
-            return Contexto.Clientes.AsNoTracking().Where(criterio).ToList();
+            return _contexto.Clientes.AsNoTracking().Where(criterio).ToList();
         }
         public List<Cliente> GetList()
         {
-            return Contexto.Clientes.AsNoTracking().ToList();
+            return _contexto.Clientes.AsNoTracking().ToList();
         }
     }
 }
