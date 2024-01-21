@@ -1,17 +1,15 @@
-﻿@page "/R_Cliente"
-@page "/R_Cliente/{ClienteId:int}"
-
+﻿ @page "/R-Cliente"
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Components.Forms
 @using ClientesMABB.BLL
 @using ClientesMABB.Models
 @using System.Globalization;
+@rendermode InteractiveServer
+@inject ClientesBLL ClientesBLL
 
 <PageTitle>Registro de Clientes</PageTitle>
 
-@inject ClientesBLL ClientesBLL
-
-<EditForm Model="Cliente" OnValidSubmit="Guardar">
+<EditForm Model="Cliente" OnValidSubmit="Guardar" FormName="ClienteForm">
     <DataAnnotationsValidator />
 
     <div class="container">
@@ -76,16 +74,15 @@
 
         <div class="card-footer d-flex justify-content-center">
             <div class="btn-group">
-                <button type="button" class="btn-nuevo" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
-                <button type="submit" class="btn-guardar">Guardar <i class="oi oi-document" /></button>
-                <button type="button" class="btn-eliminar" @onclick="Eliminar"> Eliminar <i class="oi oi-trash" /></button>
+                <button type="button" class="btn btn-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
+                <button type="submit" class="btn btn-success">Guardar <i class="oi oi-document" /></button>
+                <button type="button" class="btn btn-danger" @onclick="Eliminar"> Eliminar <i class="oi oi-trash" /></button>
             </div>
         </div>
     </div>
 
 </EditForm>
 <label class="centrar-texto">@Mensaje</label>
-
 
 @code {
     [Parameter]
@@ -165,5 +162,6 @@
         this.Cliente = new Cliente();
 
     }
-
 }
+
+

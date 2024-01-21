@@ -14,6 +14,8 @@ namespace RegistroDePrioridadesMABB1
             var ConStr = builder.Configuration.GetConnectionString("ConStr");
             builder.Services.AddDbContext<Contexto>(options => options.UseSqlite(ConStr));
             builder.Services.AddScoped<ClientesBLL>();
+            builder.Services.AddRazorPages();
+            builder.Services.AddServerSideBlazor();
 
             // Add services to the container.
             builder.Services.AddRazorComponents()
