@@ -52,7 +52,7 @@
                     @foreach (var cliente in Clientes)
                     {
                         <tr>
-                            <td><a href="R-Cliente/@cliente.ClienteId">Ver</a></td>
+                            <td><a href="/R-Cliente/@cliente.ClienteId">Ver</a></td>
                             <td>@cliente.ClienteId</td>
                             <td>@cliente.Nombres</td>
                             <td>@cliente.Telefono</td>
@@ -84,6 +84,13 @@
 
     [Parameter]
     public int ClienteId { get; set; }
+
+
+
+    protected override void OnInitialized()
+    {
+        BuscarTodo();
+    }
 
     private void BuscarTodo()
     {
